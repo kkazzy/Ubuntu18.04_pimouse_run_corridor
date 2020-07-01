@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-import rospy.copy
-from geometry_msgs import Twist
-from std_srvs import Trigger, TriggerResponse
+import rospy, copy
+from geometry_msgs.msg import Twist
+from std_srvs.srv import Trigger, TriggerResponse
 from pimouse_ros.msg import LightSensorValues
 
 class WallStop():
     def __init__(self):
-        self.cmd_vel = rospy.Publisher('/cmd_vel', Twist.queus_size=1)
+        self.cmd_vel = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
 
         self.sensor_values = LightSensorValues()
         rospy.Subscriber('/lightsensors', LightSensorValues, self.callback)
@@ -19,8 +19,8 @@ class WallStop():
         data = Twist()
 
         while not rospy.is_shutdown():
-            data.linear.x = 0.2 if self.sensor_values.sumall < 500 else 0.0
-            self.cmd_vel.Publish(data)
+            data.linear.x = 0.2 if self.sensor_values.sum_all < 500 else 0.0
+            self.cmd_vel.publish(data)
             rate.sleep()
 
 if __name__ == '__main__':
