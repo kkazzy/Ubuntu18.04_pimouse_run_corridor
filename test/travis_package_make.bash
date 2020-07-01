@@ -5,5 +5,5 @@
 rsync -av ./ ~/catkin_ws/src/pimouse_run_corridor/
 
 cd ~/catkin_ws
-git clone --depth=1 https://github.com/kkazzy/raspimouse_ros.git
+git clone --depth=1 https://github.com/kkazzy/pimouse_ros.git
 catkin_make
